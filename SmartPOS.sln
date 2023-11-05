@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{68C63B38-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{0ADAA800-0EA5-4E03-B3E6-562BE9FDD791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Products.Domain", "Products.Domain\SmartPOS.Products.Domain.csproj", "{217846D5-5551-4EBE-AFD2-0AB8ED960B05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Products.Domain", "src\SmartPOS.Products.Domain\SmartPOS.Products.Domain.csproj", "{217846D5-5551-4EBE-AFD2-0AB8ED960B05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Products.Application", "SmartPOS.Products.Application\SmartPOS.Products.Application.csproj", "{E6F54FF0-B196-4D3F-8182-78216C483591}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Products.Application", "src\SmartPOS.Products.Application\SmartPOS.Products.Application.csproj", "{E6F54FF0-B196-4D3F-8182-78216C483591}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Products.Infrastructure", "SmartPOS.Products.Infrastructure\SmartPOS.Products.Infrastructure.csproj", "{21C0B6C9-E8BF-42DF-B6CB-E60C872654DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Products.Infrastructure", "src\SmartPOS.Products.Infrastructure\SmartPOS.Products.Infrastructure.csproj", "{21C0B6C9-E8BF-42DF-B6CB-E60C872654DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Products.Api", "SmartPOS.Products.Api\SmartPOS.Products.Api.csproj", "{F05F7127-0755-4D42-9FBA-7450A8000D83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartPOS.Products.Api", "src\SmartPOS.Products.Api\SmartPOS.Products.Api.csproj", "{F05F7127-0755-4D42-9FBA-7450A8000D83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

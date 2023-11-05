@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Products.Domain\SmartPOS.Products.Domain.csproj" />
+    <ProjectReference Include="..\SmartPOS.Products.Domain\SmartPOS.Products.Domain.csproj" />
   </ItemGroup>
 
 </Project>
