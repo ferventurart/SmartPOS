@@ -10,6 +10,7 @@ using SmartPOS.Products.Application.Abstractions.Clock;
 using SmartPOS.Products.Application.Abstractions.Data;
 using SmartPOS.Products.Application.Abstractions.Email;
 using SmartPOS.Products.Domain.Abstractions;
+using SmartPOS.Products.Domain.Departments;
 using SmartPOS.Products.Domain.Users;
 using SmartPOS.Products.Infrastructure.Authentication;
 using SmartPOS.Products.Infrastructure.Clock;
@@ -49,6 +50,7 @@ public static class DependencyInjection
             options.UseNpgsql(connectionString).UseSnakeCaseNamingConvention();
         });
 
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());

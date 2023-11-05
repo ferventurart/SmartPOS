@@ -20,11 +20,21 @@ internal abstract class Repository<TEntity, TEntityId>
     {
         return await DbContext
             .Set<TEntity>()
-            .FirstOrDefaultAsync(user => user.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(entity => entity.Id == id, cancellationToken);
     }
 
     public void Add(TEntity entity)
     {
         DbContext.Add(entity);
+    }
+
+    public void Update(TEntity entity)
+    {
+        DbContext.Update(entity);
+    }
+
+    public void Delete(TEntity entity)
+    {
+        DbContext.Remove(entity);
     }
 }

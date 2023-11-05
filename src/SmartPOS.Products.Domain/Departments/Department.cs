@@ -18,13 +18,12 @@ public sealed class Department : Entity<DepartmentId>
 
     public Name Name { get; private set; }
 
-    public static Department Create(Name name)
+    public static Department Create(string name)
     {
-        var department = new Department(DepartmentId.New(), name);
+        var department = new Department(DepartmentId.New(), new Name(name));
 
         return department;
     }
 
-    public void Update(Name name) => Name = name;
-
+    public void Update(string name) => Name = new Name(name);
 }

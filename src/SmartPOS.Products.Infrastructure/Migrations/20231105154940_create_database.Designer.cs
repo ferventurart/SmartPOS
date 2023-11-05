@@ -12,8 +12,8 @@ using SmartPOS.Products.Infrastructure;
 namespace SmartPOS.Products.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231101183851_Create_Database")]
-    partial class Create_Database
+    [Migration("20231105154940_create_database")]
+    partial class create_database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
