@@ -24,8 +24,4 @@
     <ProjectReference Include="..\SmartPOS.Products.Infrastructure\SmartPOS.Products.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Taxes\" />
-  </ItemGroup>
-
 </Project>

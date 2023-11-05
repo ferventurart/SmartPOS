@@ -15,6 +15,8 @@ internal sealed class DepartmentConfiguration : IEntityTypeConfiguration<Departm
         builder.Property(department => department.Id)
             .HasConversion(department => department.Value, value => new DepartmentId(value));
 
+        builder.HasIndex(department => department.Name);
+
         builder.Property(department => department.Name)
                .HasMaxLength(60)
                .HasConversion(department => department.Value, value => new Name(value));

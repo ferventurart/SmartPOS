@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Extensions.Hosting;
 using SmartPOS.Products.Domain.Categories;
 using SmartPOS.Products.Domain.Products;
 using SmartPOS.Products.Domain.Shared;
 using SmartPOS.Products.Domain.Taxes;
-using System.Reflection.Emit;
 
 namespace SmartPOS.Products.Infrastructure.Configurations;
 
@@ -23,6 +21,8 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(product => product.Barcode)
                .HasMaxLength(150)
                .HasConversion(product => product.Value, value => new Barcode(value));
+
+        builder.HasIndex(product => product.Barcode);
 
         builder.Property(product => product.Sku)
                .HasConversion(product => product.Value, value => new Sku(value));

@@ -17,6 +17,8 @@ internal sealed class TaxConfiguration : IEntityTypeConfiguration<Tax>
         builder.Property(tax => tax.Id)
             .HasConversion(tax => tax.Value, value => new TaxId(value));
 
+        builder.HasIndex(tax => tax.Name);
+
         builder.Property(tax => tax.Name)
                .HasMaxLength(10)
                .HasConversion(tax => tax.Value, value => new Domain.Taxes.Name(value));

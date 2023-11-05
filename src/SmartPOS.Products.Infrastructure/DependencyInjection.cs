@@ -12,6 +12,7 @@ using SmartPOS.Products.Application.Abstractions.Email;
 using SmartPOS.Products.Domain.Abstractions;
 using SmartPOS.Products.Domain.Categories;
 using SmartPOS.Products.Domain.Departments;
+using SmartPOS.Products.Domain.Taxes;
 using SmartPOS.Products.Domain.Users;
 using SmartPOS.Products.Infrastructure.Authentication;
 using SmartPOS.Products.Infrastructure.Clock;
@@ -53,6 +54,7 @@ public static class DependencyInjection
 
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ITaxRepository, TaxRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
