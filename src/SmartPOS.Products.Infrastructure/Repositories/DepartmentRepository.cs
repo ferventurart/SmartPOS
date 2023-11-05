@@ -21,7 +21,7 @@ internal sealed class DepartmentRepository : Repository<Department, DepartmentId
         int pageSize,
         CancellationToken cancellation = default)
     {
-        IQueryable<Department> departmentsQuery = DbContext.Set<Department>();
+        IQueryable<Department> departmentsQuery = DbContext.Set<Department>().AsNoTracking();
 
         if (!string.IsNullOrEmpty(searchTerm))
         {
@@ -49,7 +49,8 @@ internal sealed class DepartmentRepository : Repository<Department, DepartmentId
         return await PagedList<Department>.CreateAsync(
                 departmentsQuery,
                 page,
-                pageSize);
+                pageSize,
+                cancellation);
     }
 
     public async Task<bool> HasCategoriesAttached(DepartmentId id, CancellationToken cancellation = default) =>
