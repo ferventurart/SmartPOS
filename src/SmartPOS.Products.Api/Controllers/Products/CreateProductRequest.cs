@@ -13,4 +13,5 @@ public record CreateProductRequest(
     decimal Cost,
     bool BulkSale,
     bool ShowInPos,
-    IReadOnlyList<Guid> Taxes);
+    IReadOnlyList<Guid> Taxes,
+    IReadOnlyList<decimal> UtilityPercentages);

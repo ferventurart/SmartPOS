@@ -17,7 +17,13 @@ internal sealed class TaxRepository : Repository<Tax, TaxId>, ITaxRepository
                           .AsNoTracking()
                           .AnyAsync(a => a.Name == name, cancellationToken);
 
-    public async Task<PagedList<Tax>> GetTaxes(string? searchTerm, string? sortBy, string? sortOrder, int page, int pageSize, CancellationToken cancellation = default)
+    public async Task<PagedList<Tax>> GetTaxes(
+        string? searchTerm, 
+        string? sortBy, 
+        string? sortOrder, 
+        int page, 
+        int pageSize, 
+        CancellationToken cancellation = default)
     {
         IQueryable<Tax> taxesQuery = DbContext.Set<Tax>().AsNoTracking();
 

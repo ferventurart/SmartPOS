@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SmartPOS.Products.Domain.Products;
 using SmartPOS.Products.Domain.Shared;
 using SmartPOS.Products.Domain.Taxes;
 
@@ -15,7 +14,7 @@ internal sealed class TaxConfiguration : IEntityTypeConfiguration<Tax>
         builder.HasKey(tax => tax.Id);
 
         builder.Property(tax => tax.Id)
-            .HasConversion(tax => tax.Value, value => new TaxId(value));
+               .HasConversion(tax => tax.Value, value => new TaxId(value));
 
         builder.HasIndex(tax => tax.Name);
 

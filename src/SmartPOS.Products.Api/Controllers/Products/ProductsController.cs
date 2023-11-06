@@ -56,7 +56,8 @@ public class ProductsController : ControllerBase
            request.Cost,
            request.BulkSale,
            request.ShowInPos,
-           request.Taxes);
+           request.Taxes,
+           request.UtilityPercentages);
 
         var result = await _sender.Send(command, cancellationToken);
 

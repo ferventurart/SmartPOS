@@ -3,7 +3,7 @@ using SmartPOS.Products.Domain.Abstractions;
 using SmartPOS.Products.Domain.Products;
 using SmartPOS.Products.Domain.Products.Events;
 
-namespace SmartPOS.Products.Application.Products.Create;
+namespace SmartPOS.Products.Application.Products.Events;
 
 internal sealed class TaxAddedProductEventHandler : INotificationHandler<TaxAddedProductEvent>
 {

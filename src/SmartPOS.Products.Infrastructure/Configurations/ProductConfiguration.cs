@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartPOS.Products.Domain.Categories;
+using SmartPOS.Products.Domain.Prices;
 using SmartPOS.Products.Domain.Products;
 using SmartPOS.Products.Domain.Shared;
 using SmartPOS.Products.Domain.Taxes;
@@ -39,13 +40,13 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.OwnsOne(product => product.Cost, priceBuilder =>
         {
             priceBuilder.Property(money => money.Currency)
-                .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
+                        .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
         });
 
         builder.OwnsOne(product => product.CostWithTaxes, priceBuilder =>
         {
             priceBuilder.Property(money => money.Currency)
-                .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
+                        .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
         });
 
         builder.HasOne<Category>()

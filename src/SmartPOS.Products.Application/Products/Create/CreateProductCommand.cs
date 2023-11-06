@@ -15,4 +15,5 @@ public record CreateProductCommand(
     decimal Cost,
     bool BulkSale,
     bool ShowInPos,
-    IReadOnlyList<Guid> Taxes) : ICommand<Guid>;
+    IReadOnlyList<Guid> Taxes,
+    IReadOnlyList<decimal> UtilityPercentages) : ICommand<Guid>;

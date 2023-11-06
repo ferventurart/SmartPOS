@@ -69,16 +69,17 @@ public sealed class Product : Entity<ProductId>
     Money cost,
     IReadOnlyList<Tax> taxes,
     bool bulkSale,
-    bool showInPos)
+    bool showInPos,
+    IReadOnlyList<decimal> utilityPercentages)
     {
         var amountTaxes = 0.00m;
 
         foreach (Tax tax in taxes)
         {
-            amountTaxes += cost.Amount * tax.Percentage.Value;
+            amountTaxes += Math.Round(cost.Amount * tax.Percentage.Value, 2);
         }
 
-        var costWithTaxes = new Money(cost.Amount + amountTaxes, cost.Currency);
+        var costWithTaxes = new Money(Math.Round(cost.Amount + amountTaxes, 2), cost.Currency);
 
         var product = new Product(
             ProductId.New(),
@@ -96,11 +97,19 @@ public sealed class Product : Entity<ProductId>
             showInPos,
             ProductStatus.Available);
 
+        var taxIds = taxes.Select(s => s.Id)
+                 .ToList()
+                 .AsReadOnly();
         product.RaiseDomainEvent(new TaxAddedProductEvent(
             product.Id,
-            taxes.Select(s => s.Id)
-                 .ToList()
-                 .AsReadOnly()
+            taxIds
+        ));
+
+        product.RaiseDomainEvent(new RegisterProductPricesEvent(
+           product.Id,
+           utilityPercentages,
+           taxIds,
+           cost
         ));
 
         return product;

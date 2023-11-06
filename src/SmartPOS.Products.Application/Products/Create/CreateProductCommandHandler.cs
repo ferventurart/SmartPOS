@@ -1,4 +1,5 @@
 ﻿using SmartPOS.Products.Application.Abstractions.Messaging;
+using SmartPOS.Products.Application.Categories.Get;
 using SmartPOS.Products.Domain.Abstractions;
 using SmartPOS.Products.Domain.Categories;
 using SmartPOS.Products.Domain.Products;
@@ -24,6 +25,13 @@ internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProduc
 
     public async Task<Result<Guid>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
+        var category = await _categoryRepository.GetByIdAsync(new CategoryId(request.CategoryId), cancellationToken);
+
+        if (category is null)
+        {
+            return Result.Failure<Guid>(CategoryErrors.NotFound);
+        }
+
         var sku = request.GenerateSku ? Sku.New() : Sku.Create(request.Sku);
 
         var taxes = await _taxRepository.GetSelectedTaxes(
@@ -49,7 +57,8 @@ internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProduc
             new Money(request.Cost, Currency.Usd),
             taxes,
             request.BulkSale,
-            request.ShowInPos);
+            request.ShowInPos,
+            request.UtilityPercentages);
 
         _productRepository.Add(product);
 

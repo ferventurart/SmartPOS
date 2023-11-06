@@ -2,6 +2,11 @@
 
 public record Name
 {
+    public Name()
+    {
+
+    }
+
     public string Value { get; init; }
 
     public Name(string value)

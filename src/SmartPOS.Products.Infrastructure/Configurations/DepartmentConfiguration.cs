@@ -13,7 +13,7 @@ internal sealed class DepartmentConfiguration : IEntityTypeConfiguration<Departm
         builder.HasKey(department => department.Id);
 
         builder.Property(department => department.Id)
-            .HasConversion(department => department.Value, value => new DepartmentId(value));
+               .HasConversion(department => department.Value, value => new DepartmentId(value));
 
         builder.HasIndex(department => department.Name);
 

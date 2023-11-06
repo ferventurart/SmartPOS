@@ -14,7 +14,7 @@ internal sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.HasKey(category => category.Id);
 
         builder.Property(category => category.Id)
-            .HasConversion(category => category.Value, value => new CategoryId(value));
+               .HasConversion(category => category.Value, value => new CategoryId(value));
 
         builder.HasIndex(category => category.Name);
 

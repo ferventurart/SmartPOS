@@ -105,6 +105,31 @@ namespace SmartPOS.Products.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "product_prices",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    product_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    number = table.Column<int>(type: "integer", nullable: false),
+                    price_amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    price_currency = table.Column<string>(type: "text", nullable: false),
+                    price_with_tax_amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    price_with_tax_currency = table.Column<string>(type: "text", nullable: false),
+                    utility = table.Column<decimal>(type: "numeric", nullable: false),
+                    price_starting_from = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_product_prices", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_product_prices_products_product_id1",
+                        column: x => x.product_id,
+                        principalTable: "products",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "product_tax",
                 columns: table => new
                 {
@@ -134,9 +159,29 @@ namespace SmartPOS.Products.Infrastructure.Migrations
                 column: "department_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_categories_name",
+                table: "categories",
+                column: "name");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_departments_name",
+                table: "departments",
+                column: "name");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_prices_product_id",
+                table: "product_prices",
+                column: "product_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_product_tax_tax_id",
                 table: "product_tax",
                 column: "tax_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_products_barcode",
+                table: "products",
+                column: "barcode");
 
             migrationBuilder.CreateIndex(
                 name: "ix_products_category_id",
@@ -147,6 +192,11 @@ namespace SmartPOS.Products.Infrastructure.Migrations
                 name: "ix_products_sku",
                 table: "products",
                 column: "sku");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_taxes_name",
+                table: "taxes",
+                column: "name");
         }
 
         /// <inheritdoc />
@@ -154,6 +204,9 @@ namespace SmartPOS.Products.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "outbox_messages");
+
+            migrationBuilder.DropTable(
+                name: "product_prices");
 
             migrationBuilder.DropTable(
                 name: "product_tax");

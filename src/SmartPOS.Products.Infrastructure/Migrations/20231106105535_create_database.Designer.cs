@@ -12,7 +12,7 @@ using SmartPOS.Products.Infrastructure;
 namespace SmartPOS.Products.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231105154940_create_database")]
+    [Migration("20231106105535_create_database")]
     partial class create_database
     {
         /// <inheritdoc />
@@ -47,6 +47,9 @@ namespace SmartPOS.Products.Infrastructure.Migrations
                     b.HasIndex("DepartmentId")
                         .HasDatabaseName("ix_categories_department_id");
 
+                    b.HasIndex("Name")
+                        .HasDatabaseName("ix_categories_name");
+
                     b.ToTable("categories", (string)null);
                 });
 
@@ -65,7 +68,41 @@ namespace SmartPOS.Products.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_departments");
 
+                    b.HasIndex("Name")
+                        .HasDatabaseName("ix_departments_name");
+
                     b.ToTable("departments", (string)null);
+                });
+
+            modelBuilder.Entity("SmartPOS.Products.Domain.Prices.ProductPrice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer")
+                        .HasColumnName("number");
+
+                    b.Property<int?>("PriceStartingFrom")
+                        .HasColumnType("integer")
+                        .HasColumnName("price_starting_from");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_id");
+
+                    b.Property<decimal>("Utility")
+                        .HasColumnType("numeric")
+                        .HasColumnName("utility");
+
+                    b.HasKey("Id")
+                        .HasName("pk_product_prices");
+
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_product_prices_product_id");
+
+                    b.ToTable("product_prices", (string)null);
                 });
 
             modelBuilder.Entity("SmartPOS.Products.Domain.Products.Product", b =>
@@ -127,6 +164,9 @@ namespace SmartPOS.Products.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_products");
 
+                    b.HasIndex("Barcode")
+                        .HasDatabaseName("ix_products_barcode");
+
                     b.HasIndex("CategoryId")
                         .HasDatabaseName("ix_products_category_id");
 
@@ -178,6 +218,9 @@ namespace SmartPOS.Products.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_taxes");
 
+                    b.HasIndex("Name")
+                        .HasDatabaseName("ix_taxes_name");
+
                     b.ToTable("taxes", (string)null);
                 });
 
@@ -224,6 +267,70 @@ namespace SmartPOS.Products.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_categories_department_department_temp_id");
+                });
+
+            modelBuilder.Entity("SmartPOS.Products.Domain.Prices.ProductPrice", b =>
+                {
+                    b.HasOne("SmartPOS.Products.Domain.Products.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_prices_products_product_id1");
+
+                    b.OwnsOne("SmartPOS.Products.Domain.Shared.Money", "Price", b1 =>
+                        {
+                            b1.Property<Guid>("ProductPriceId")
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
+
+                            b1.Property<decimal>("Amount")
+                                .HasColumnType("numeric")
+                                .HasColumnName("price_amount");
+
+                            b1.Property<string>("Currency")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("price_currency");
+
+                            b1.HasKey("ProductPriceId");
+
+                            b1.ToTable("product_prices");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductPriceId")
+                                .HasConstraintName("fk_product_prices_product_prices_id");
+                        });
+
+                    b.OwnsOne("SmartPOS.Products.Domain.Shared.Money", "PriceWithTax", b1 =>
+                        {
+                            b1.Property<Guid>("ProductPriceId")
+                                .HasColumnType("uuid")
+                                .HasColumnName("id");
+
+                            b1.Property<decimal>("Amount")
+                                .HasColumnType("numeric")
+                                .HasColumnName("price_with_tax_amount");
+
+                            b1.Property<string>("Currency")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("price_with_tax_currency");
+
+                            b1.HasKey("ProductPriceId");
+
+                            b1.ToTable("product_prices");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductPriceId")
+                                .HasConstraintName("fk_product_prices_product_prices_id");
+                        });
+
+                    b.Navigation("Price")
+                        .IsRequired();
+
+                    b.Navigation("PriceWithTax")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SmartPOS.Products.Domain.Products.Product", b =>
