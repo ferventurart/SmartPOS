@@ -1,5 +1,6 @@
 ﻿using SmartPOS.Products.Application.Abstractions.Messaging;
 using SmartPOS.Products.Domain.Abstractions;
+using SmartPOS.Products.Domain.Shared;
 using SmartPOS.Products.Domain.Taxes;
 
 namespace SmartPOS.Products.Application.Taxes.Get;
@@ -25,7 +26,7 @@ internal sealed class GetTaxQueryHandler : IQueryHandler<GetTaxQuery, TaxRespons
         return new TaxResponse(
             tax.Id.Value,
             tax.Name.Value,
-            tax.Percentage.Value,
+            Percentage.ToValue(tax.Percentage),
             tax.AddAutomatically);
     }
 }

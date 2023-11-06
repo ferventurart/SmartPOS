@@ -24,6 +24,6 @@ internal sealed class TaxConfiguration : IEntityTypeConfiguration<Tax>
                .HasConversion(tax => tax.Value, value => new Domain.Taxes.Name(value));
 
         builder.Property(tax => tax.Percentage)
-               .HasConversion(tax => tax.Value, value => new Percentage(value));
+               .HasConversion(tax => tax.Value, value => Percentage.FromValue(value));
     }
 }

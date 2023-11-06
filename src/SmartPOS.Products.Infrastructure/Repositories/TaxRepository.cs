@@ -14,6 +14,7 @@ internal sealed class TaxRepository : Repository<Tax, TaxId>, ITaxRepository
 
     public async Task<bool> Exists(Name name, CancellationToken cancellationToken = default)
         => await DbContext.Set<Tax>()
+                          .AsNoTracking()
                           .AnyAsync(a => a.Name == name, cancellationToken);
 
     public async Task<PagedList<Tax>> GetTaxes(string? searchTerm, string? sortBy, string? sortOrder, int page, int pageSize, CancellationToken cancellation = default)
@@ -49,4 +50,10 @@ internal sealed class TaxRepository : Repository<Tax, TaxId>, ITaxRepository
                 pageSize,
                 cancellation);
     }
+
+    public async Task<IReadOnlyList<Tax>> GetSelectedTaxes(List<TaxId> taxIds, CancellationToken cancellationToken = default)
+        => await DbContext.Set<Tax>()
+                          .AsNoTracking()     
+                          .Where(w => taxIds.Contains(w.Id))
+                          .ToListAsync(cancellationToken); 
 }

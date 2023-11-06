@@ -1,5 +1,6 @@
 ﻿using SmartPOS.Products.Domain.Abstractions;
 using SmartPOS.Products.Domain.Categories;
+using SmartPOS.Products.Domain.Products.Events;
 using SmartPOS.Products.Domain.Shared;
 using SmartPOS.Products.Domain.Taxes;
 
@@ -94,6 +95,13 @@ public sealed class Product : Entity<ProductId>
             bulkSale,
             showInPos,
             ProductStatus.Available);
+
+        product.RaiseDomainEvent(new TaxAddedProductEvent(
+            product.Id,
+            taxes.Select(s => s.Id)
+                 .ToList()
+                 .AsReadOnly()
+        ));
 
         return product;
     }

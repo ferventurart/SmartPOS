@@ -55,5 +55,6 @@ internal sealed class DepartmentRepository : Repository<Department, DepartmentId
 
     public async Task<bool> HasCategoriesAttached(DepartmentId id, CancellationToken cancellation = default) =>
             await DbContext.Set<Category>()
+                           .AsNoTracking() 
                            .AnyAsync(a => a.DepartmentId == id, cancellation);
 }

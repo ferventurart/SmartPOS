@@ -21,7 +21,7 @@ internal sealed class CreateTaxCommandHandler : ICommandHandler<CreateTaxCommand
         var taxName = new Name(request.Name);
         var tax = Tax.Create(
             taxName,
-            new Percentage(request.Percentage),
+            Percentage.Create(request.Percentage),
             request.AddAutomatically);
 
         if(await _repository.Exists(taxName))

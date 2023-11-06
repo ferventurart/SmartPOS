@@ -18,7 +18,8 @@ internal sealed class CategoryRepository : Repository<Category, CategoryId>, ICa
         Domain.Categories.Name name,
         CancellationToken cancellationToken = default) =>
          await DbContext.Set<Category>()
-                       .AnyAsync(a => a.DepartmentId == departmentId && a.Name == name);
+                        .AsNoTracking()
+                        .AnyAsync(a => a.DepartmentId == departmentId && a.Name == name);
 
     public async Task<PagedList<Category>> GetCategories(DepartmentId departmentId, string? searchTerm, string? sortBy, string? sortOrder, int page, int pageSize, CancellationToken cancellation = default)
     {

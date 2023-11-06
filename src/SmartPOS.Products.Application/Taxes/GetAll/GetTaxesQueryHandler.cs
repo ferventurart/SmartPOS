@@ -1,6 +1,7 @@
 ﻿using SmartPOS.Products.Application.Abstractions.Messaging;
 using SmartPOS.Products.Application.Taxes.Get;
 using SmartPOS.Products.Domain.Abstractions;
+using SmartPOS.Products.Domain.Shared;
 using SmartPOS.Products.Domain.Taxes;
 
 namespace SmartPOS.Products.Application.Taxes.GetAll;
@@ -27,7 +28,11 @@ internal sealed class GetTaxesQueryHandler : IQueryHandler<GetTaxesQuery, PagedL
 
         return PagedList<TaxResponse>.Create(
                taxes.Items
-                           .Select(s => new TaxResponse(s.Id.Value, s.Name.Value, s.Percentage.Value, s.AddAutomatically))
+                           .Select(s => new TaxResponse(
+                               s.Id.Value, 
+                               s.Name.Value, 
+                               Percentage.ToValue(s.Percentage), 
+                               s.AddAutomatically))
                            .ToList(),
                 taxes.Page,
                 taxes.PageSize,

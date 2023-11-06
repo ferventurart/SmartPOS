@@ -25,7 +25,7 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasIndex(product => product.Barcode);
 
         builder.Property(product => product.Sku)
-               .HasConversion(product => product.Value, value => new Sku(value));
+               .HasConversion(product => product.Value, value => Sku.Create(value));
 
         builder.HasIndex(product => product.Sku);
 

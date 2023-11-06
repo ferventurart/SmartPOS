@@ -27,7 +27,7 @@ internal sealed class UpdateTaxCommandHandler : ICommandHandler<UpdateTaxCommand
 
         tax.Update(
             new Name(request.Name),
-            new Percentage(request.Percentage),
+            Percentage.Create(request.Percentage),
             request.AddAutomatically);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
